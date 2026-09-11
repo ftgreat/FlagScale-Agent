@@ -89,7 +89,12 @@ class SkillManager:
         mapping = self._scan()
         skill_file = mapping.get(name)
         if skill_file is None:
-            raise FileNotFoundError(f"Skill '{name}' not found in: {self._dirs}")
+            raise FileNotFoundError(
+                f"Skill '{name}' not found in: {self._dirs}"
+                "\nHint: if this skill was created or renamed DURING the current "
+                "session, the manager's startup snapshot may be stale — restart "
+                "the process or start a new session to pick it up."
+            )
         meta, body = self._parse_file(skill_file)
         skill_name = meta.get("name", name)
 

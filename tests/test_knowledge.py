@@ -58,7 +58,10 @@ class TestKnowledgeManager:
         from flagscale_agent.knowledge import KnowledgeManager
         km = KnowledgeManager()
         assert km.root.exists()
-        assert len(km.available_groups) == 17
+        # >= 17 builtin groups; exact count grows as new groups are added
+        # (e.g. know-hygon-dcu) — don't hardcode to avoid brittle updates.
+        assert len(km.available_groups) >= 17
+        assert "know-hygon-dcu" in km.available_groups
 
     def test_init_custom_dir(self, knowledge_dir):
         """Test initialization with custom directory."""
@@ -174,6 +177,17 @@ class TestLoadKnowledgeTool:
         tool = LoadKnowledgeTool(km)
         result = tool.execute(name="nonexistent-group")
         assert "Unknown group" in result
+
+    def test_execute_unknown_group_hints_stale_snapshot(self):
+        """Error hint for groups added mid-session (startup snapshot caching)."""
+        from flagscale_agent.knowledge import KnowledgeManager
+        from flagscale_agent.react.tools.load_knowledge import LoadKnowledgeTool
+
+        km = KnowledgeManager()
+        tool = LoadKnowledgeTool(km)
+        result = tool.execute(name="nonexistent-group")
+        assert "snapshot" in result
+        assert "restart" in result
 
     def test_tool_attributes(self):
         """Test tool has required attributes."""

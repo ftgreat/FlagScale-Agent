@@ -30,6 +30,9 @@ _sources:
   profiling:
     repo: Profiling-Analysis
     commit: docs-only
+  hygon_dcu:
+    repo: auto_e2e (local WorkSpace)
+    commit: f36f6ff  # 海光vllm-plugin-FL吞吐优化框架 init commit, 2026-06-22
 
 know-megatron-parallel:
   description: "Megatron并行机制：TP/PP/DP/CP/EP进程组创建、通信模式、流水线调度"
@@ -99,6 +102,14 @@ know-nccl-runtime:
     - nccl/04_transport_layer.md
     - nccl/05_enqueue_scheduling.md
     - nccl/06_performance_tuning.md
+
+know-hygon-dcu:
+  description: "海光DCU vllm-plugin-FL推理优化平台事实：服务参数/benchmark口径/精度冒烟/缓存清理、HIP profiling工具链与trace格式、优化空间与历史基线、auto_e2e迁移对照"
+  docs:
+    - hygon_dcu/01_serving_and_benchmark.md
+    - hygon_dcu/02_hipprof_toolchain.md
+    - hygon_dcu/03_optimization_space_and_history.md
+    - hygon_dcu/04_migration_map.md
 
 know-flash-attn:
   description: "FlashAttention：Online Softmax tiling、SM90 TMA/WGMMA kernel、backward pass、KV cache推理"

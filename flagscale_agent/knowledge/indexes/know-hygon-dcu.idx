@@ -1,0 +1,32 @@
+# know-hygon-dcu
+# 海光DCU vllm-plugin-FL推理优化平台事实：服务参数/benchmark口径/精度冒烟/缓存清理、HIP profiling工具链与trace格式、优化空间与历史基线、auto_e2e迁移对照
+# Source: auto_e2e (local WorkSpace) @ f36f6ff
+
+# To read a section: load_knowledge(name='know-hygon-dcu', doc='<path below>', start_line=<L>, end_line=<L>)
+# Do NOT pass these doc paths to read_file — they are knowledge-internal.
+
+## hygon_dcu/01_serving_and_benchmark.md (29 lines)
+L1: 海光 DCU 服务部署与 Benchmark 事实
+  L5: 固定服务参数（scripts/plugin_serv.sh，不可改）
+  L13: Benchmark 方法（scripts/benchmark_perf.py）
+  L20: 精度验证（scripts/plugin_cli.sh）
+  L26: 缓存清理路径（实验前必做）
+
+## hygon_dcu/02_hipprof_toolchain.md (40 lines)
+L1: 海光 HIP Profiling 工具链事实
+  L5: 工具链角色
+  L15: Trace 产物（生成于实验目录）
+  L24: Kernel 名称模式 → 功能类别映射（海光/ROCm 栈）
+  L32: Host-side API 判读阈值（经验值，来自 auto_e2e 实测）
+  L38: 分析判例（实测参考）
+
+## hygon_dcu/03_optimization_space_and_history.md (30 lines)
+L1: 优化空间与历史实验结论
+  L5: 优化对象（任务约束）
+  L12: 三个优化层面
+  L19: 基线与历史
+  L26: 历史结论存放约定
+
+## hygon_dcu/04_migration_map.md (26 lines)
+L1: auto_e2e → FlagScale-Agent 迁移对照表
+  L20: 迁移裁剪说明

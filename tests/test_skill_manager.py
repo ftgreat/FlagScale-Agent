@@ -72,6 +72,15 @@ class TestSkillManager:
         with pytest.raises(FileNotFoundError):
             mgr.load("nonexistent")
 
+    def test_load_missing_message_mentions_stale_snapshot(self, skill_dirs):
+        """Error hint for skills created mid-session (startup snapshot caching)."""
+        mgr = SkillManager(skill_dirs)
+        with pytest.raises(FileNotFoundError) as exc_info:
+            mgr.load("nonexistent")
+        msg = str(exc_info.value)
+        assert "startup snapshot" in msg
+        assert "restart" in msg
+
     def test_empty_dirs(self):
         mgr = SkillManager(["/nonexistent/path"])
         assert mgr.list_skills() == []

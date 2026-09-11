@@ -89,7 +89,12 @@ class LoadKnowledgeTool(Tool):
 
         if name not in self._km.available_groups:
             available = ", ".join(self._km.available_groups)
-            return f"Unknown group '{name}'. Available: {available}"
+            return (
+                f"Unknown group '{name}'. Available: {available}"
+                "\nHint: if this group was added or renamed DURING the current "
+                "session, the available-group snapshot was taken at process "
+                "start — restart the process or start a new session to pick it up."
+            )
 
         if doc:
             group_docs = self._km.get_group_docs(name)
